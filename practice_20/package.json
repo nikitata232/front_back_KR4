@@ -1,0 +1,13 @@
+{
+  "name": "practice-20-mongodb",
+  "version": "1.0.0",
+  "description": "REST API с MongoDB (практика 20)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  }
+}

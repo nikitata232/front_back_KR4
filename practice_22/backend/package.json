@@ -1,0 +1,12 @@
+{
+  "name": "practice-22-backend",
+  "version": "1.0.0",
+  "description": "Backend-сервер для демонстрации балансировки (практика 22)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
