@@ -55,19 +55,16 @@ sudo apt update && sudo apt install -y mongodb-org
 sudo systemctl start mongod
 ```
 
-### 2. Установить зависимости и запустить
+### 2. Запустить через Docker Compose
 
 ```bash
-npm install
-node server.js
+docker compose up --build
 ```
 
-### Переменные окружения (опционально)
+Сервер будет доступен на `http://localhost:3000/api/users`.
 
-```
-MONGO_URI=mongodb://localhost:27017/practice20
-PORT=3000
-```
+> Если практика 19 уже запущена на порту 3000, используй порт 3001:
+> в `docker-compose.yml` измени `"3000:3000"` на `"3001:3000"`
 
 ## Примеры запросов
 

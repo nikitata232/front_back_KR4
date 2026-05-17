@@ -1,3 +1,4 @@
 task/
 .claude/
 node_modules/
+.env
