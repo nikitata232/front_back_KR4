@@ -8,9 +8,12 @@ const { createClient } = require('redis');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
+const path = require('path');
+
 const app = express();
-app.use(cors({ origin: 'http://localhost:3001' }));
+app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
 const PORT = process.env.PORT || 3000;
 const ACCESS_SECRET = process.env.ACCESS_SECRET || 'access_secret';
@@ -783,6 +786,29 @@ app.delete('/api/products/:id', authMiddleware, roleMiddleware('admin'), async (
 
     await invalidateCache('products:all', `products:${req.params.id}`);
     res.json({ message: 'Товар удалён' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── Dev endpoints (dashboard) ───────────────────────────────────────────────
+app.get('/dev/redis-keys', async (req, res) => {
+  try {
+    const keys = await redisClient.keys('*');
+    const result = await Promise.all(keys.map(async (key) => ({
+      key,
+      ttl: await redisClient.ttl(key),
+    })));
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/dev/flush', async (req, res) => {
+  try {
+    await redisClient.flushAll();
+    res.json({ message: 'Cache cleared' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
