@@ -1,12 +1,18 @@
 {
-  "name": "practice-23-backend",
+  "name": "practice-23-phonestore-docker",
   "version": "1.0.0",
-  "description": "Backend-сервис для Docker Compose (практика 23)",
+  "description": "PhoneStore backend для Docker Compose с PostgreSQL и retry (практика 23)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^3.3.7",
+    "pg": "^8.11.3",
+    "redis": "^4.6.13"
   }
 }

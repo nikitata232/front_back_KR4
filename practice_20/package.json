@@ -1,13 +1,19 @@
 {
-  "name": "practice-20-mongodb",
+  "name": "practice-20-phonestore-mongodb",
   "version": "1.0.0",
-  "description": "REST API с MongoDB (практика 20)",
+  "description": "PhoneStore REST API с MongoDB (практика 20)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "mongoose": "^8.0.3"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "nanoid": "^3.3.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

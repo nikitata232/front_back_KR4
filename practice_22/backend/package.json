@@ -1,12 +1,18 @@
 {
-  "name": "practice-22-backend",
+  "name": "practice-22-phonestore-backend",
   "version": "1.0.0",
-  "description": "Backend-сервер для демонстрации балансировки (практика 22)",
+  "description": "PhoneStore backend с SERVER_ID для демонстрации балансировки нагрузки (практика 22)",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^3.3.7",
+    "pg": "^8.11.3",
+    "redis": "^4.6.13"
   }
 }

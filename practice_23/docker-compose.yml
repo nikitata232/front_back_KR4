@@ -1,8 +1,32 @@
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: phonestore
+      POSTGRES_USER: phonestore
+      POSTGRES_PASSWORD: phonestore
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U phonestore"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
   nginx:
     image: nginx:alpine
     ports:
-      - "80:80"
+      - "8023:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     networks:
@@ -17,24 +41,54 @@ services:
     environment:
       - PORT=3000
       - SERVER_ID=1
+      - DB_HOST=postgres
+      - DB_USER=phonestore
+      - DB_PASSWORD=phonestore
+      - DB_NAME=phonestore
+      - REDIS_URL=redis://redis:6379
     networks:
       - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   backend2:
     build: ./backend
     environment:
       - PORT=3000
       - SERVER_ID=2
+      - DB_HOST=postgres
+      - DB_USER=phonestore
+      - DB_PASSWORD=phonestore
+      - DB_NAME=phonestore
+      - REDIS_URL=redis://redis:6379
     networks:
       - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
   backend3:
     build: ./backend
     environment:
       - PORT=3000
       - SERVER_ID=3
+      - DB_HOST=postgres
+      - DB_USER=phonestore
+      - DB_PASSWORD=phonestore
+      - DB_NAME=phonestore
+      - REDIS_URL=redis://redis:6379
     networks:
       - app-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 networks:
   app-network:
